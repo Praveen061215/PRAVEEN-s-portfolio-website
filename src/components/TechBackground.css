@@ -1,0 +1,235 @@
+/* ═══════════════════════════════════════════════════════════
+   TECHBACKGROUND  —  Live Animated Gradient + Technical Canvas
+   ═══════════════════════════════════════════════════════════ */
+
+.tech-bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  background: #02050f;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ─── NEBULA BLOBS ──────────────────────────────────────── */
+.bg-gradient-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Light Blue blob — top-left */
+.blob-light-blue {
+  width: 65vw;
+  height: 65vw;
+  max-width: 900px;
+  max-height: 900px;
+  top: -20%;
+  left: -15%;
+  background: radial-gradient(
+    circle at center,
+    rgba(125, 211, 252, 0.55) 0%,
+    rgba(56, 189, 248, 0.35) 35%,
+    rgba(14, 165, 233, 0.18) 60%,
+    transparent 80%
+  );
+  filter: blur(80px);
+  animation: blob-drift-lb 20s ease-in-out infinite alternate;
+}
+
+/* Dark Blue blob — bottom center */
+.blob-dark-blue {
+  width: 75vw;
+  height: 75vw;
+  max-width: 1000px;
+  max-height: 1000px;
+  bottom: -25%;
+  left: 10%;
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.45) 0%,
+    rgba(30, 64, 175, 0.30) 40%,
+    rgba(15, 23, 70, 0.20) 65%,
+    transparent 85%
+  );
+  filter: blur(90px);
+  animation: blob-drift-db 28s ease-in-out infinite alternate;
+}
+
+/* Light Pink blob — right side */
+.blob-light-pink {
+  width: 60vw;
+  height: 60vw;
+  max-width: 800px;
+  max-height: 800px;
+  top: 10%;
+  right: -15%;
+  background: radial-gradient(
+    circle at center,
+    rgba(249, 168, 212, 0.50) 0%,
+    rgba(236, 72, 153, 0.30) 40%,
+    rgba(219, 39, 119, 0.15) 65%,
+    transparent 85%
+  );
+  filter: blur(80px);
+  animation: blob-drift-pk 24s ease-in-out infinite alternate;
+}
+
+/* Secondary pink accent — center */
+.blob-center-accent {
+  width: 50vw;
+  height: 50vw;
+  max-width: 680px;
+  max-height: 680px;
+  top: 30%;
+  left: 30%;
+  background: radial-gradient(
+    circle at center,
+    rgba(186, 230, 253, 0.25) 0%,
+    rgba(147, 197, 253, 0.15) 45%,
+    transparent 80%
+  );
+  filter: blur(100px);
+  animation: blob-drift-ca 32s ease-in-out infinite alternate;
+}
+
+/* Small pink sparkle — top right */
+.blob-sparkle {
+  width: 35vw;
+  height: 35vw;
+  max-width: 480px;
+  max-height: 480px;
+  top: -5%;
+  right: 25%;
+  background: radial-gradient(
+    circle at center,
+    rgba(251, 207, 232, 0.40) 0%,
+    rgba(244, 114, 182, 0.25) 50%,
+    transparent 80%
+  );
+  filter: blur(65px);
+  animation: blob-drift-sp 18s ease-in-out infinite alternate;
+}
+
+/* ─── CIRCUIT GRID OVERLAY ─────────────────────────────── */
+.tech-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(125, 211, 252, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125, 211, 252, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(249, 168, 212, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249, 168, 212, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px, 60px 60px, 180px 180px, 180px 180px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Animated horizontal scan line */
+.tech-grid-overlay::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -100px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(125, 211, 252, 0.0) 10%,
+    rgba(125, 211, 252, 0.35) 30%,
+    rgba(249, 168, 212, 0.35) 50%,
+    rgba(125, 211, 252, 0.35) 70%,
+    rgba(125, 211, 252, 0.0) 90%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  box-shadow: 0 0 12px rgba(125, 211, 252, 0.4), 0 0 30px rgba(249, 168, 212, 0.2);
+  animation: scanline 8s linear infinite;
+}
+
+/* Vertical scan line */
+.tech-grid-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100px;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(125, 211, 252, 0.0) 10%,
+    rgba(59, 130, 246, 0.30) 30%,
+    rgba(249, 168, 212, 0.30) 50%,
+    rgba(59, 130, 246, 0.30) 70%,
+    rgba(125, 211, 252, 0.0) 90%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+  animation: scanline-v 12s linear infinite;
+  animation-delay: -4s;
+}
+
+/* ─── CANVAS ────────────────────────────────────────────── */
+.tech-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+/* ─── KEYFRAMES ─────────────────────────────────────────── */
+@keyframes blob-drift-lb {
+  0%   { transform: translate(0,   0)   scale(1.0); }
+  33%  { transform: translate(8vw, 12vh) scale(1.15); }
+  66%  { transform: translate(3vw, 5vh)  scale(0.9); }
+  100% { transform: translate(12vw, 18vh) scale(1.05); }
+}
+
+@keyframes blob-drift-db {
+  0%   { transform: translate(0,    0)    scale(1.0); }
+  33%  { transform: translate(-8vw, -10vh) scale(0.92); }
+  66%  { transform: translate(6vw,  -5vh) scale(1.1); }
+  100% { transform: translate(-5vw,  8vh) scale(0.95); }
+}
+
+@keyframes blob-drift-pk {
+  0%   { transform: translate(0,    0)    scale(1.0); }
+  33%  { transform: translate(-10vw, 8vh)  scale(1.12); }
+  66%  { transform: translate(-5vw, 15vh)  scale(0.88); }
+  100% { transform: translate(-12vw, 3vh)  scale(1.05); }
+}
+
+@keyframes blob-drift-ca {
+  0%   { transform: translate(0,   0)   scale(1.0);  opacity: 0.8; }
+  50%  { transform: translate(5vw, -8vh) scale(1.2);  opacity: 1; }
+  100% { transform: translate(-5vw, 5vh) scale(0.85); opacity: 0.6; }
+}
+
+@keyframes blob-drift-sp {
+  0%   { transform: translate(0,    0)    scale(1.0); }
+  50%  { transform: translate(-6vw, 10vh) scale(1.2); }
+  100% { transform: translate(8vw,  5vh)  scale(0.85); }
+}
+
+@keyframes scanline {
+  0%   { top: -100px; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { top: calc(100vh + 100px); opacity: 0; }
+}
+
+@keyframes scanline-v {
+  0%   { left: -100px; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { left: calc(100vw + 100px); opacity: 0; }
+}

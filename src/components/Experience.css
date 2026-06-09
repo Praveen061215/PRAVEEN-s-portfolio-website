@@ -1,0 +1,193 @@
+.experience-section {
+  position: relative;
+  z-index: 2;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 20px;
+}
+
+.section-subtitle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.col-icon {
+  color: var(--color-primary);
+  filter: drop-shadow(0 0 5px rgba(0, 242, 254, 0.4));
+}
+
+.col-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-main);
+}
+
+/* Job Card */
+.job-card {
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 20px;
+}
+
+.job-role {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.job-company {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  margin-top: 4px;
+}
+
+.job-duration {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.job-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.responsibilities-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.responsibility-item {
+  display: flex;
+  gap: 12px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  align-items: flex-start;
+}
+
+.check-icon {
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* Certs Card Grid */
+.certificates-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Scrollbar styling for cert scroll */
+.certificates-grid::-webkit-scrollbar {
+  width: 4px;
+}
+
+.certificates-grid::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.certificates-grid::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+.cert-card {
+  display: flex;
+  gap: 18px;
+  padding: 18px;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: var(--transition-bounce);
+}
+
+.cert-card:hover {
+  transform: translateX(6px);
+  border-color: rgba(0, 242, 254, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cert-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: rgba(255, 0, 127, 0.08);
+  border: 1px solid rgba(255, 0, 127, 0.15);
+  color: var(--color-pink);
+  flex-shrink: 0;
+}
+
+.cert-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.cert-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-main);
+}
+
+.cert-issuer {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 2px 0 4px;
+}
+
+.cert-year {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+@media (max-width: 992px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .job-card {
+    padding: 20px;
+  }
+}
