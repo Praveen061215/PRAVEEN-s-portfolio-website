@@ -58,6 +58,13 @@ const Experience = () => {
 
   return (
     <section id="experience" className="experience-section section-container reveal">
+      {/* Section number badge */}
+      <div className="section-number-badge">
+        <div className="badge-line" />
+        <span className="badge-number">04 — EXPERIENCE</span>
+        <div className="badge-line badge-line-right" />
+      </div>
+
       <h2 className="section-title">Experience & Certifications</h2>
 
       <div className="experience-grid">

@@ -4,6 +4,7 @@ import {
 } from 'lucide-react';
 import './Navbar.css';
 import profileImg from '../assets/profile.jpg';
+import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
   { label: 'About',      href: '#about',      icon: <User      size={14} /> },
@@ -87,12 +88,15 @@ const Navbar = () => {
           })}
         </ul>
 
-        {/* ── Hire Me CTA ─────────────────────────────── */}
-        <a href="#contact" className="hire-btn" onClick={closeMobileMenu} aria-label="Hire Me">
-          <Zap size={14} className="hire-btn-icon" />
-          <span>Hire Me</span>
-          <span className="hire-btn-glow" aria-hidden="true" />
-        </a>
+        {/* ── Actions: Theme + Hire Me CTA ────────────────────── */}
+        <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <ThemeToggle />
+          <a href="#contact" className="hire-btn" onClick={closeMobileMenu} aria-label="Hire Me">
+            <Zap size={14} className="hire-btn-icon" />
+            <span>Hire Me</span>
+            <span className="hire-btn-glow" aria-hidden="true" />
+          </a>
+        </div>
 
         {/* ── Mobile Hamburger ────────────────────────── */}
         <button

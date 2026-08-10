@@ -27,6 +27,39 @@ const Projects = () => {
 
   const projects = [
     {
+      id: 7,
+      title: "Campus One Digital Academy",
+      subtitle: "Student Management System",
+      category: "desktop",
+      technologies: ["C#", ".NET Framework 4.7.2", "Windows Forms", "SQL Server"],
+      description: "A robust desktop application for managing students at Campus One Digital Academy. Features a layered architecture with UI forms, data models, and data access logic connected to a local SQL database.",
+      features: [
+        "Login & authentication system",
+        "Student registration & management",
+        "Interactive dashboard overview",
+        "Layered software architecture",
+        "Local SQL database integration",
+        "Data access layer (DAL)"
+      ],
+      link: "https://github.com/Praveen061215"
+    },
+    {
+      id: 6,
+      title: "Snake Game",
+      subtitle: "Web-based Classic Game",
+      category: "web",
+      technologies: ["JavaScript", "HTML5", "CSS3", "Node.js"],
+      description: "This Snake Game system is built using JavaScript (ES6+) for game logic, movement physics, level management, and audio. HTML5 provides the page structure and Canvas API rendering, CSS3 handles visual styling, and Node.js powers the backend server scripts.",
+      features: [
+        "Game logic and movement physics",
+        "Level management system",
+        "HTML5 Canvas API rendering",
+        "Audio integration",
+        "Backend server scripts"
+      ],
+      link: "https://github.com/Praveen061215"
+    },
+    {
       id: 1,
       title: "KYA Food Production",
       subtitle: "Web Food Management System",
@@ -157,6 +190,13 @@ const Projects = () => {
 
   return (
     <section id="projects" className="projects-section section-container reveal">
+      {/* Section number badge */}
+      <div className="section-number-badge">
+        <div className="badge-line" />
+        <span className="badge-number">03 — PORTFOLIO</span>
+        <div className="badge-line badge-line-right" />
+      </div>
+
       <h2 className="section-title">Project Portfolio</h2>
       
       <p className="projects-subtitle">

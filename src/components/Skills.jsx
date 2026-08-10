@@ -143,6 +143,13 @@ const Skills = () => {
 
   return (
     <section id="skills" className="skills-section section-container reveal">
+      {/* Section number badge */}
+      <div className="section-number-badge">
+        <div className="badge-line" />
+        <span className="badge-number">02 — EXPERTISE</span>
+        <div className="badge-line badge-line-right" />
+      </div>
+
       <h2 className="section-title">Technical Skills & Expertise</h2>
       
       <p className="skills-subtitle">
