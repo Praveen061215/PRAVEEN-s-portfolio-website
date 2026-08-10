@@ -7,6 +7,7 @@ import {
   deleteTestimonial,
   updateTestimonial,
   subscribeToTestimonials,
+  isFirebaseConfigured as checkFirebaseConfigured,
 } from "../utils/firebase";
 
 import "./Testimonials.css";
@@ -15,7 +16,7 @@ const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollContainerRef = useRef(null);
   const [testimonials, setTestimonials] = useState(defaultTestimonials);
-  const [isFirebaseConfigured, setIsFirebaseConfigured] = useState(false);
+  const [isFirebaseConfigured, setIsFirebaseConfigured] = useState(checkFirebaseConfigured());
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -46,11 +47,6 @@ const Testimonials = () => {
   // Subscribe to Firebase testimonials on component mount
   useEffect(() => {
     const unsubscribe = subscribeToTestimonials((firebaseTestimonials) => {
-      // Check if it's returning empty due to not being configured
-      import("../utils/firebase").then(({ isFirebaseConfigured: checkFirebase }) => {
-        setIsFirebaseConfigured(checkFirebase());
-      });
-
       if (firebaseTestimonials.length > 0) {
         // Sort Firebase testimonials by createdAt (newest first)
         const sortedFirebaseTestimonials = firebaseTestimonials.sort(

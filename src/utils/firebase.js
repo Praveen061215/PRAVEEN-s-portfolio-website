@@ -21,7 +21,9 @@ const firebaseConfig = {
 };
 
 export const isFirebaseConfigured = () => {
-  return firebaseConfig.apiKey && firebaseConfig.apiKey !== 'YOUR_API_KEY_HERE';
+  console.log("Firebase API Key:", firebaseConfig.apiKey);
+  console.log("Is configured?", !!(firebaseConfig.apiKey && firebaseConfig.apiKey !== 'YOUR_API_KEY_HERE'));
+  return !!(firebaseConfig.apiKey && firebaseConfig.apiKey !== 'YOUR_API_KEY_HERE');
 };
 
 const _isConfigured = isFirebaseConfigured();
