@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, ArrowRight } from 'lucide-react';
+import { Mail, Phone, ArrowRight, ShieldCheck, Download } from 'lucide-react';
 import './Hero.css';
-import profileImg from '../assets/profile.jpg';
+import profile3Img from '../assets/profile3.png';
 
 // Custom SVG Icons to replace missing brand icons in Lucide 1.0+
 const GithubIcon = ({ size = 20, ...props }) => (
@@ -109,6 +109,15 @@ const Hero = () => {
             <a href="#contact" className="btn-secondary">
               Contact Me
             </a>
+            <a
+              href="/Praveen_Gunarathna_CV.pdf"
+              download="G.A.M. Praveen N. Gunarathna - CV.pdf"
+              className="btn-download-cv"
+              aria-label="Download CV"
+            >
+              <Download size={18} />
+              Download CV
+            </a>
           </div>
 
           <div className="hero-socials">
@@ -127,59 +136,21 @@ const Hero = () => {
           </div>
         </div>
 
+        {/* Professional Profile Image Showcase */}
         <div className="hero-visual reveal-right active">
-          <div className="visual-card-wrapper flip-card">
-            <div className="flip-card-inner">
-              
-              {/* Front Face: Profile Card */}
-              <div className="glass-panel visual-card flip-card-front">
-                <div className="profile-photo-container">
-                  <div className="profile-glow-ring"></div>
-                  <img src={profileImg} className="profile-photo" alt="G.A.M. Praveen N. Gunarathna" />
-                </div>
-                <div className="profile-info">
-                  <h3 className="profile-name">Praveen Gunarathna</h3>
-                  <p className="profile-title">Software Developer</p>
-                  <div className="profile-badges">
-                    <span className="profile-badge">BSc (Hons)</span>
-                    <span className="profile-badge">Flutter</span>
-                    <span className="profile-badge">PHP</span>
-                  </div>
-                  <p className="flip-hint">Hover to reveal tech profile</p>
-                </div>
-              </div>
-
-              {/* Back Face: JSON Code */}
-              <div className="glass-panel visual-card flip-card-back">
-                <div className="card-header">
-                  <span className="dot dot-red"></span>
-                  <span className="dot dot-yellow"></span>
-                  <span className="dot dot-green"></span>
-                  <span className="card-title-text">developer.json</span>
-                </div>
-                <div className="card-code">
-                  <pre>
-                    <code>
-                      <span className="code-key">"name"</span>: <span className="code-val">"Praveen Gunarathna"</span>,<br />
-                      <span className="code-key">"role"</span>: <span className="code-val">"Full Stack Developer"</span>,<br />
-                      <span className="code-key">"education"</span>: &#123;<br />
-                      &nbsp;&nbsp;<span className="code-key">"degree"</span>: <span className="code-val">"BSc (Hons)"</span>,<br />
-                      &nbsp;&nbsp;<span className="code-key">"university"</span>: <span className="code-val">"Kingston London"</span><br />
-                      &#125;,<br />
-                      <span className="code-key">"skills"</span>: [<br />
-                      &nbsp;&nbsp;<span className="code-val">"Flutter"</span>, <span className="code-val">"Dart"</span>, <span className="code-val">"PHP"</span>,<br />
-                      &nbsp;&nbsp;<span className="code-val">"Java"</span>, <span className="code-val">"MySQL"</span>, <span className="code-val">"C#"</span><br />
-                      ],<br />
-                      <span className="code-key">"passion"</span>: <span className="code-val">"Creating software"</span>
-                    </code>
-                  </pre>
-                </div>
-              </div>
-
+          <div className="profile-hero-frame glass-panel">
+            <div className="profile-hero-glow"></div>
+            <div className="profile-image-wrapper">
+              <img src={profile3Img} alt="Praveen Gunarathna - Software Engineer" className="profile-hero-img" />
+              <div className="profile-glass-shine"></div>
             </div>
-            <div className="visual-glow"></div>
+            <div className="profile-hero-badge">
+              <ShieldCheck size={18} className="badge-icon" />
+              <span>SOFTWARE ENGINEER</span>
+            </div>
           </div>
         </div>
+
       </div>
 
       <a href="#about" className="scroll-indicator" aria-label="Scroll to About Section">
@@ -192,3 +163,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

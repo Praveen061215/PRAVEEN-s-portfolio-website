@@ -59,7 +59,31 @@ const About = () => {
 
   return (
     <section id="about" className="about-section section-container reveal">
-      <h2 className="section-title">About Me & Education</h2>
+      {/* Floating particles */}
+      <div className="section-particles" aria-hidden="true">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="section-particle"
+            style={{
+              left: `${10 + i * 12}%`,
+              top: `${20 + (i % 3) * 25}%`,
+              '--p-duration': `${5 + i * 0.7}s`,
+              '--p-delay': `${i * 0.8}s`,
+              '--p-travel': `-${60 + i * 10}px`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Section number badge */}
+      <div className="section-number-badge">
+        <div className="badge-line" />
+        <span className="badge-number">01 — PROFILE</span>
+        <div className="badge-line badge-line-right" />
+      </div>
+
+      <h2 className="section-title">About Me &amp; Education</h2>
       
       <div className="about-grid">
         {/* Left Column: Bio & Soft Skills */}
