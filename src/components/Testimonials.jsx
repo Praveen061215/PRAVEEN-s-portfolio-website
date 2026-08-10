@@ -46,6 +46,11 @@ const Testimonials = () => {
   // Subscribe to Firebase testimonials on component mount
   useEffect(() => {
     const unsubscribe = subscribeToTestimonials((firebaseTestimonials) => {
+      // Check if it's returning empty due to not being configured
+      import("../utils/firebase").then(({ isFirebaseConfigured: checkFirebase }) => {
+        setIsFirebaseConfigured(checkFirebase());
+      });
+
       if (firebaseTestimonials.length > 0) {
         // Sort Firebase testimonials by createdAt (newest first)
         const sortedFirebaseTestimonials = firebaseTestimonials.sort(
@@ -54,11 +59,10 @@ const Testimonials = () => {
         // Combine Firebase testimonials with default ones
         // Firebase testimonials come first (newest)
         const combined = [
-          ...firebaseTestimonials,
+          ...sortedFirebaseTestimonials,
           ...defaultTestimonials,
         ];
         setTestimonials(combined);
-        setIsFirebaseConfigured(true);
         // Reset to first position to show newest testimonial
         setCurrentIndex(0);
         // Scroll to first position
@@ -73,7 +77,6 @@ const Testimonials = () => {
       } else {
         // No Firebase testimonials yet, use defaults
         setTestimonials(defaultTestimonials);
-        setIsFirebaseConfigured(true);
       }
     });
 
@@ -243,7 +246,7 @@ const Testimonials = () => {
       console.error("Error submitting testimonial:", error);
       setFormStatus({
         type: "error",
-        message: "Failed to submit testimonial. Please try again.",
+        message: `Failed to submit testimonial: ${error.message || "Please try again."}`,
       });
     }
   };

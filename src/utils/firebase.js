@@ -20,13 +20,16 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// Check if Firebase config is actually provided
-const isConfigured = firebaseConfig.apiKey && firebaseConfig.apiKey !== 'YOUR_API_KEY_HERE';
+export const isFirebaseConfigured = () => {
+  return firebaseConfig.apiKey && firebaseConfig.apiKey !== 'YOUR_API_KEY_HERE';
+};
+
+const _isConfigured = isFirebaseConfigured();
 
 let app;
 let db;
 
-if (isConfigured) {
+if (_isConfigured) {
   app = initializeApp(firebaseConfig);
   db = getFirestore(app);
 }
@@ -34,28 +37,28 @@ if (isConfigured) {
 const COLLECTION_NAME = 'testimonials';
 
 export const addTestimonial = async (testimonial) => {
-  if (!isConfigured) throw new Error("Firebase is not configured.");
+  if (!_isConfigured) throw new Error("Firebase is not configured. Please add your config to the .env file.");
   const colRef = collection(db, COLLECTION_NAME);
   const docRef = await addDoc(colRef, testimonial);
   return { ...testimonial, id: docRef.id };
 };
 
 export const updateTestimonial = async (id, updatedData) => {
-  if (!isConfigured) throw new Error("Firebase is not configured.");
+  if (!_isConfigured) throw new Error("Firebase is not configured. Please add your config to the .env file.");
   const docRef = doc(db, COLLECTION_NAME, id);
   await updateDoc(docRef, updatedData);
   return true;
 };
 
 export const deleteTestimonial = async (id) => {
-  if (!isConfigured) throw new Error("Firebase is not configured.");
+  if (!_isConfigured) throw new Error("Firebase is not configured. Please add your config to the .env file.");
   const docRef = doc(db, COLLECTION_NAME, id);
   await deleteDoc(docRef);
   return true;
 };
 
 export const subscribeToTestimonials = (callback) => {
-  if (!isConfigured) {
+  if (!_isConfigured) {
     callback([]);
     return () => {};
   }
