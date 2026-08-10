@@ -356,12 +356,26 @@
   }
 }
 
+@media (max-width: 768px) {
+  .bio-card {
+    padding: 30px 24px;
+  }
+  .about-stats {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+}
+
 @media (max-width: 480px) {
   .bio-card {
-    padding: 24px;
+    padding: 20px 16px;
   }
   .timeline-card {
-    padding: 18px;
+    padding: 16px;
+  }
+  .about-stats {
+    flex-direction: column;
+    gap: 12px;
   }
   .timeline {
     margin-left: 10px;

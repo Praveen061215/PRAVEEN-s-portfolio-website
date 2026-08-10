@@ -186,6 +186,17 @@
   }
 }
 
+@media (max-width: 768px) {
+  .job-card {
+    padding: 24px;
+  }
+  .job-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
 @media (max-width: 480px) {
   .job-card {
     padding: 20px;

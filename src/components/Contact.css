@@ -250,6 +250,12 @@
   }
 }
 
+@media (max-width: 768px) {
+  .contact-input {
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+}
+
 @media (max-width: 480px) {
   .contact-card {
     padding: 24px;

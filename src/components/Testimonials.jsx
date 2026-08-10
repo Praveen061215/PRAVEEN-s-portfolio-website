@@ -557,7 +557,7 @@ const Testimonials = () => {
           <div className="relative">
             <div
               ref={scrollContainerRef}
-              className="overflow-x-hidden scroll-smooth"
+              className="overflow-x-auto scroll-smooth hide-scroll"
               style={{ scrollSnapType: "x mandatory" }}
             >
               <div className="flex">

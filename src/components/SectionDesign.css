@@ -22,7 +22,7 @@
 }
 
 .section-number-badge .badge-line {
-  width: 40px;
+  width: 40px; max-width: 100vw;
   height: 1px;
   background: linear-gradient(90deg, var(--color-primary), transparent);
   opacity: 0.4;
@@ -40,7 +40,7 @@
   position: absolute;
   top: -100px;
   right: -200px;
-  width: 600px;
+  width: 600px; max-width: 100vw;
   height: 600px;
   background: radial-gradient(
     circle at center,
@@ -58,7 +58,7 @@
   position: absolute;
   bottom: -50px;
   left: -100px;
-  width: 400px;
+  width: 400px; max-width: 100vw;
   height: 400px;
   background: radial-gradient(
     circle at center,
@@ -76,7 +76,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 800px;
+  width: 800px; max-width: 100vw;
   height: 800px;
   background: radial-gradient(
     ellipse at center,
@@ -94,7 +94,7 @@
   position: absolute;
   top: 0;
   left: -150px;
-  width: 500px;
+  width: 500px; max-width: 100vw;
   height: 500px;
   background: radial-gradient(
     circle at center,
@@ -113,7 +113,7 @@
   position: absolute;
   top: 0;
   right: -100px;
-  width: 450px;
+  width: 450px; max-width: 100vw;
   height: 450px;
   background: radial-gradient(
     circle at center,
@@ -131,7 +131,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 500px;
+  width: 500px; max-width: 100vw;
   height: 500px;
   background: radial-gradient(
     circle at bottom right,
@@ -174,7 +174,7 @@
   bottom: -14px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 80px; max-width: 100vw;
   height: 3px;
   background: linear-gradient(90deg, var(--color-primary), var(--color-purple), var(--color-primary));
   background-size: 200% 100%;
@@ -198,7 +198,7 @@
 
 .section-particle {
   position: absolute;
-  width: 2px;
+  width: 2px; max-width: 100vw;
   height: 2px;
   background: var(--color-primary);
   border-radius: 50%;
@@ -252,7 +252,7 @@
   position: absolute;
   top: 0;
   left: -1px;
-  width: 2px;
+  width: 2px; max-width: 100vw;
   height: 100%;
   background: linear-gradient(
     180deg,
@@ -314,7 +314,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 60px;
+  width: 60px; max-width: 100vw;
   height: 60px;
   background: radial-gradient(
     circle at top right,
@@ -373,7 +373,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 3px;
+  width: 3px; max-width: 100vw;
   height: 100%;
   background: linear-gradient(180deg, var(--color-primary), var(--color-purple));
   border-radius: 20px 0 0 20px;
@@ -439,7 +439,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 700px;
+  width: 700px; max-width: 100vw;
   height: 500px;
   background: radial-gradient(
     ellipse at center,
