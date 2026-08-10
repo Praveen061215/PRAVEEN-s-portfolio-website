@@ -363,14 +363,6 @@ const Testimonials = () => {
           <div className="text-center mb-8">
             <button
               onClick={() => {
-                if (!isFirebaseConfigured) {
-                  setFormStatus({
-                    type: "error",
-                    message:
-                      "Firebase not configured. Testimonial submission is disabled.",
-                  });
-                  return;
-                }
                 setShowForm(!showForm);
               }}
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 border border-primary/30 rounded-full hover:bg-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105 cursor-pointer"
