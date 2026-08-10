@@ -1,59 +1,75 @@
-// Mock Firebase implementation using localStorage
-// Replace with actual Firebase code when ready
+import { initializeApp } from 'firebase/app';
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  deleteDoc, 
+  doc, 
+  onSnapshot, 
+  query, 
+  orderBy,
+  updateDoc
+} from 'firebase/firestore';
 
-const STORAGE_KEY = 'mock_firebase_testimonials';
-
-// Initialize with empty array if nothing exists
-if (!localStorage.getItem(STORAGE_KEY)) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
-}
-
-let listeners = [];
-
-const notifyListeners = () => {
-  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  listeners.forEach(listener => listener(data));
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
+// Check if Firebase config is actually provided
+const isConfigured = firebaseConfig.apiKey && firebaseConfig.apiKey !== 'YOUR_API_KEY_HERE';
+
+let app;
+let db;
+
+if (isConfigured) {
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+}
+
+const COLLECTION_NAME = 'testimonials';
+
 export const addTestimonial = async (testimonial) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-      const newTestimonial = { ...testimonial, id: Date.now().toString() };
-      data.push(newTestimonial);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      notifyListeners();
-      resolve(newTestimonial);
-    }, 500); // simulate network delay
-  });
+  if (!isConfigured) throw new Error("Firebase is not configured.");
+  const colRef = collection(db, COLLECTION_NAME);
+  const docRef = await addDoc(colRef, testimonial);
+  return { ...testimonial, id: docRef.id };
+};
+
+export const updateTestimonial = async (id, updatedData) => {
+  if (!isConfigured) throw new Error("Firebase is not configured.");
+  const docRef = doc(db, COLLECTION_NAME, id);
+  await updateDoc(docRef, updatedData);
+  return true;
 };
 
 export const deleteTestimonial = async (id) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-      const updatedData = data.filter(t => t.id !== id);
-      if (data.length === updatedData.length) {
-        reject(new Error("Testimonial not found"));
-        return;
-      }
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedData));
-      notifyListeners();
-      resolve(true);
-    }, 500);
-  });
+  if (!isConfigured) throw new Error("Firebase is not configured.");
+  const docRef = doc(db, COLLECTION_NAME, id);
+  await deleteDoc(docRef);
+  return true;
 };
 
 export const subscribeToTestimonials = (callback) => {
-  // Initial callback
-  const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  callback(data);
-  
-  // Add to listeners
-  listeners.push(callback);
-  
-  // Return unsubscribe function
-  return () => {
-    listeners = listeners.filter(l => l !== callback);
-  };
+  if (!isConfigured) {
+    callback([]);
+    return () => {};
+  }
+
+  const colRef = collection(db, COLLECTION_NAME);
+  const q = query(colRef, orderBy('createdAt', 'desc'));
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    const data = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    callback(data);
+  });
+
+  return unsubscribe;
 };

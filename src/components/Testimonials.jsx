@@ -5,6 +5,7 @@ import FadeIn from "../animations/FadeIn";
 import {
   addTestimonial,
   deleteTestimonial,
+  updateTestimonial,
   subscribeToTestimonials,
 } from "../utils/firebase";
 
@@ -29,6 +30,7 @@ const Testimonials = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [formStatus, setFormStatus] = useState({ type: "", message: "" });
   const [currentUserId, setCurrentUserId] = useState("");
+  const [editingId, setEditingId] = useState(null);
 
   // Get or create a unique user ID for this browser
   useEffect(() => {
@@ -52,7 +54,7 @@ const Testimonials = () => {
         // Combine Firebase testimonials with default ones
         // Firebase testimonials come first (newest)
         const combined = [
-          ...sortedFirebaseTestimonials,
+          ...firebaseTestimonials,
           ...defaultTestimonials,
         ];
         setTestimonials(combined);
@@ -161,28 +163,53 @@ const Testimonials = () => {
     setFormStatus({ type: "loading", message: "Submitting testimonial..." });
 
     try {
-      // Create new testimonial
-      const newTestimonial = {
-        name: formData.name,
-        role: formData.role,
-        company: formData.company,
-        image: formData.image || "/images/testimonials/default_user.png",
-        quote: formData.quote,
-        rating: formData.rating,
-        customStat:
-          formData.customStatValue && formData.customStatLabel
-            ? {
-                value: formData.customStatValue,
-                label: formData.customStatLabel,
-              }
-            : null,
-        isUserSubmitted: true,
-        createdAt: Date.now(),
-        userId: currentUserId, // Store the user ID who created this testimonial
-      };
-
-      // Save to Firebase
-      await addTestimonial(newTestimonial);
+      // Check if we are updating or creating
+      if (editingId) {
+        await updateTestimonial(editingId, {
+          name: formData.name,
+          role: formData.role,
+          company: formData.company,
+          image: formData.image || "/images/testimonials/default_user.png",
+          quote: formData.quote,
+          rating: formData.rating,
+          customStat:
+            formData.customStatValue && formData.customStatLabel
+              ? {
+                  value: formData.customStatValue,
+                  label: formData.customStatLabel,
+                }
+              : null,
+          // Do not update createdAt and userId
+        });
+        setFormStatus({
+          type: "success",
+          message: "Testimonial updated successfully!",
+        });
+      } else {
+        const newTestimonial = {
+          name: formData.name,
+          role: formData.role,
+          company: formData.company,
+          image: formData.image || "/images/testimonials/default_user.png",
+          quote: formData.quote,
+          rating: formData.rating,
+          customStat:
+            formData.customStatValue && formData.customStatLabel
+              ? {
+                  value: formData.customStatValue,
+                  label: formData.customStatLabel,
+                }
+              : null,
+          isUserSubmitted: true,
+          createdAt: Date.now(),
+          userId: currentUserId, // Store the user ID who created this testimonial
+        };
+        await addTestimonial(newTestimonial);
+        setFormStatus({
+          type: "success",
+          message: "Thank you for your testimonial!",
+        });
+      }
 
       // Reset form
       setFormData({
@@ -197,10 +224,7 @@ const Testimonials = () => {
       });
       setImagePreview(null);
       setShowForm(false);
-      setFormStatus({
-        type: "success",
-        message: "Thank you for your testimonial!",
-      });
+      setEditingId(null);
 
       // Reset carousel to show the newest testimonial
       setCurrentIndex(0);
@@ -249,6 +273,31 @@ const Testimonials = () => {
         message: "Failed to delete testimonial. Please try again.",
       });
     }
+  };
+
+  const handleEditTestimonial = (testimonial) => {
+    // Check if the testimonial belongs to the current user
+    if (testimonial.userId && testimonial.userId !== currentUserId) {
+      setFormStatus({
+        type: "error",
+        message: "You can only edit your own testimonials.",
+      });
+      return;
+    }
+    
+    setFormData({
+      name: testimonial.name,
+      role: testimonial.role,
+      company: testimonial.company,
+      quote: testimonial.quote,
+      rating: testimonial.rating,
+      image: testimonial.image,
+      customStatValue: testimonial.customStat?.value || "",
+      customStatLabel: testimonial.customStat?.label || "",
+    });
+    setImagePreview(testimonial.image !== "/images/testimonials/default_user.png" ? testimonial.image : null);
+    setEditingId(testimonial.id);
+    setShowForm(true);
   };
 
   const scrollToIndex = (index) => {
@@ -336,18 +385,31 @@ const Testimonials = () => {
           <FadeIn delay={100}>
             <div className="max-w-2xl mx-auto mb-12 px-4 md:px-0">
               <div className="testimonial-modal-bg backdrop-blur-md rounded-2xl p-6 md:p-8 relative">
-                <button
-                  onClick={() => setShowForm(false)}
+                  onClick={() => {
+                    setShowForm(false);
+                    setEditingId(null);
+                    setFormData({
+                      name: "",
+                      role: "",
+                      company: "",
+                      quote: "",
+                      rating: 5,
+                      image: null,
+                      customStatValue: "",
+                      customStatLabel: "",
+                    });
+                    setImagePreview(null);
+                  }}
                   className="absolute top-4 right-4 testimonial-subtitle hover:testimonial-title transition-colors cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
 
                 <h3 className="text-xl md:text-2xl font-semibold testimonial-title mb-2">
-                  Share Your Experience
+                  {editingId ? "Update Your Experience" : "Share Your Experience"}
                 </h3>
                 <p className="testimonial-subtitle text-sm mb-6">
-                  Tell others about your experience working with me
+                  {editingId ? "Modify your testimonial below" : "Tell others about your experience working with me"}
                 </p>
 
                 <form onSubmit={handleSubmitTestimonial} className="space-y-4">
@@ -520,7 +582,7 @@ const Testimonials = () => {
                     className="w-full px-6 py-3 bg-primary text-white font-medium rounded-xl hover:bg-primary/90 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Send className="w-4 h-4" />
-                    <span>Submit Testimonial</span>
+                    <span>{editingId ? "Update Testimonial" : "Submit Testimonial"}</span>
                   </button>
 
                   {formStatus.message && (
@@ -598,29 +660,48 @@ const Testimonials = () => {
                               </div>
                             </div>
 
-                            {/* Delete Button for User Submitted Testimonials - Only for own testimonials */}
+                            {/* Edit/Delete Buttons for User Submitted Testimonials - Only for own testimonials */}
                             {testimonial.isUserSubmitted &&
                               testimonial.userId === currentUserId && (
-                                <button
-                                  onClick={() => {
-                                    if (!isFirebaseConfigured) {
-                                      setFormStatus({
-                                        type: "error",
-                                        message:
-                                          "Firebase not configured. Cannot delete testimonials.",
-                                      });
-                                      return;
-                                    }
-                                    handleDeleteTestimonial(
-                                      testimonial.id,
-                                      testimonial,
-                                    );
-                                  }}
-                                  className="absolute top-3 right-3 p-2 bg-red-500/20 border border-red-500/50 rounded-full hover:bg-red-500/40 transition-all duration-300 cursor-pointer"
-                                  title="Delete testimonial"
-                                >
-                                  <X className="w-2.5 h-2.5 text-red-400" />
-                                </button>
+                                <div className="absolute top-3 right-3 flex flex-col gap-2">
+                                  <button
+                                    onClick={() => {
+                                      if (!isFirebaseConfigured) {
+                                        setFormStatus({
+                                          type: "error",
+                                          message:
+                                            "Firebase not configured. Cannot edit testimonials.",
+                                        });
+                                        return;
+                                      }
+                                      handleEditTestimonial(testimonial);
+                                    }}
+                                    className="p-2 bg-blue-500/20 border border-blue-500/50 rounded-full hover:bg-blue-500/40 transition-all duration-300 cursor-pointer"
+                                    title="Edit testimonial"
+                                  >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                  </button>
+                                  <button
+                                    onClick={() => {
+                                      if (!isFirebaseConfigured) {
+                                        setFormStatus({
+                                          type: "error",
+                                          message:
+                                            "Firebase not configured. Cannot delete testimonials.",
+                                        });
+                                        return;
+                                      }
+                                      handleDeleteTestimonial(
+                                        testimonial.id,
+                                        testimonial,
+                                      );
+                                    }}
+                                    className="p-2 bg-red-500/20 border border-red-500/50 rounded-full hover:bg-red-500/40 transition-all duration-300 cursor-pointer"
+                                    title="Delete testimonial"
+                                  >
+                                    <X className="w-2.5 h-2.5 text-red-400" />
+                                  </button>
+                                </div>
                               )}
                           </div>
                         </div>
