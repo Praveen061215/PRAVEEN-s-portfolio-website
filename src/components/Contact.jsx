@@ -51,11 +51,11 @@ const Contact = () => {
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
         console.error("Form submission failed", result);
-        setFormStatus('error');
+        setFormStatus(`error: ${result.message || 'Submission failed'}`);
       }
     } catch (error) {
       console.error("Error submitting form", error);
-      setFormStatus('error');
+      setFormStatus('error: Network error. Please try again.');
     }
   };
 
@@ -196,10 +196,14 @@ const Contact = () => {
                   ></textarea>
                 </div>
 
-                {formStatus === 'error' && (
+                {formStatus.startsWith('error') && (
                   <div className="form-error-msg">
                     <AlertCircle size={16} />
-                    <span>Please fill in all required fields correctly.</span>
+                    <span>
+                      {formStatus === 'error' 
+                        ? 'Please fill in all required fields correctly.' 
+                        : formStatus.replace('error: ', '')}
+                    </span>
                   </div>
                 )}
 
