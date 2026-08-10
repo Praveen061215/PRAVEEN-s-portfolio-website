@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════
+   TESTIMONIALS COMPONENT STYLES (Light & Dark Theme Responsive)
+   ═══════════════════════════════════════════════════════════ */
+
+.testimonial-title {
+  color: var(--text-main) !important;
+}
+
+.testimonial-subtitle {
+  color: var(--text-muted) !important;
+}
+
+.testimonial-label {
+  color: var(--text-muted) !important;
+}
+
+.testimonial-quote {
+  color: var(--text-main) !important;
+}
+
+.testimonial-author {
+  color: var(--text-main) !important;
+}
+
+.testimonial-role {
+  color: var(--text-muted) !important;
+}
+
+.testimonial-icon {
+  color: var(--text-main) !important;
+}
+
+/* Modal Form Controls */
+.testimonial-modal-bg {
+  background-color: var(--bg-darker) !important;
+  border-color: var(--glass-border) !important;
+}
+
+.testimonial-input {
+  background-color: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+  color: var(--text-main) !important;
+}
+
+.testimonial-input::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.6;
+}
+
+.testimonial-upload-btn {
+  background-color: var(--glass-bg) !important;
+  border-color: var(--glass-border) !important;
+  color: var(--text-muted) !important;
+}
+
+.testimonial-upload-btn:hover {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+.testimonial-submit-btn {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)) !important;
+  color: var(--bg-darker) !important;
+}
+
+/* Testimonial Card Styling */
+.testimonial-card-item {
+  background-color: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: 0 10px 30px -5px rgba(var(--color-white-rgb), 0.08) !important;
+}
+
+/* Testimonial Carousel Controls */
+.testimonial-nav-btn {
+  background-color: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  color: var(--text-main) !important;
+}
+
+.testimonial-nav-btn:hover {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.3) !important;
+}

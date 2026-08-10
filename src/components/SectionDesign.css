@@ -1,0 +1,497 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION DESIGN ENHANCEMENTS — About Me & Education section downwards
+   Premium visual layers: section numbers, ambient glows, micro-animations
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Section Number Indicator ─────────────────────────────────────────────── */
+.section-number-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  justify-content: center;
+}
+
+.section-number-badge .badge-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 3px;
+  opacity: 0.6;
+}
+
+.section-number-badge .badge-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-primary), transparent);
+  opacity: 0.4;
+}
+
+.section-number-badge .badge-line-right {
+  background: linear-gradient(270deg, var(--color-primary), transparent);
+}
+
+/* ─── Section Ambient Glow Backgrounds ─────────────────────────────────────── */
+
+/* About Section Ambient */
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle at center,
+    rgba(var(--color-primary-rgb), 0.04) 0%,
+    rgba(var(--color-purple-rgb), 0.03) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: glow-drift-1 12s ease-in-out infinite alternate;
+}
+
+.about-section::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle at center,
+    rgba(var(--color-purple-rgb), 0.05) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Skills Section Ambient */
+.skills-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(var(--color-primary-rgb), 0.025) 0%,
+    rgba(0, 242, 254, 0.015) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Projects Section Ambient */
+.projects-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle at center,
+    rgba(var(--color-pink-rgb), 0.04) 0%,
+    rgba(var(--color-purple-rgb), 0.03) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: glow-drift-2 14s ease-in-out infinite alternate;
+}
+
+/* Experience Section Ambient */
+.experience-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -100px;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(
+    circle at center,
+    rgba(var(--color-primary-rgb), 0.035) 0%,
+    rgba(0, 242, 254, 0.02) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Contact Section Ambient */
+.contact-section::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle at bottom right,
+    rgba(var(--color-purple-rgb), 0.05) 0%,
+    rgba(var(--color-primary-rgb), 0.03) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes glow-drift-1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-30px, 20px) scale(1.1); }
+  100% { transform: translate(20px, -20px) scale(0.95); }
+}
+
+@keyframes glow-drift-2 {
+  0%   { transform: translate(0, 0) scale(0.95); }
+  50%  { transform: translate(30px, -20px) scale(1.05); }
+  100% { transform: translate(-10px, 15px) scale(1); }
+}
+
+/* ─── Section Title Enhancements ─────────────────────────────────────────────── */
+.section-title {
+  background: linear-gradient(135deg, #f8fafc 0%, rgba(var(--color-primary-rgb), 0.9) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-purple), var(--color-primary));
+  background-size: 200% 100%;
+  border-radius: 2px;
+  animation: title-line-move 3s linear infinite;
+}
+
+@keyframes title-line-move {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ─── Floating Particles in sections ──────────────────────────────────────── */
+.section-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.section-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particle-float var(--p-duration, 6s) ease-in-out var(--p-delay, 0s) infinite;
+}
+
+@keyframes particle-float {
+  0%   { opacity: 0; transform: translateY(0) scale(0); }
+  10%  { opacity: 0.6; transform: translateY(-10px) scale(1); }
+  90%  { opacity: 0.2; transform: translateY(var(--p-travel, -80px)) scale(0.5); }
+  100% { opacity: 0; transform: translateY(var(--p-travel, -80px)) scale(0); }
+}
+
+/* ─── About Section Enhanced Cards ─────────────────────────────────────────── */
+.bio-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.bio-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-purple), var(--color-primary));
+  background-size: 200% 100%;
+  animation: card-top-line 4s linear infinite;
+  border-radius: 20px 20px 0 0;
+}
+
+@keyframes card-top-line {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.bio-card h3 {
+  background: linear-gradient(135deg, var(--text-main) 0%, var(--color-primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block;
+}
+
+/* ─── Timeline Enhanced Styling ─────────────────────────────────────────────── */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-primary-rgb), 0.5) 0%,
+    rgba(var(--color-purple-rgb), 0.4) 50%,
+    rgba(var(--color-primary-rgb), 0.1) 100%
+  );
+  border-radius: 2px;
+  animation: timeline-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes timeline-glow {
+  0%   { box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.3); }
+  100% { box-shadow: 0 0 12px rgba(var(--color-primary-rgb), 0.6); }
+}
+
+/* Overwrite old boring timeline border */
+.timeline {
+  border-left: none !important;
+}
+
+.timeline-dot {
+  background: linear-gradient(135deg, rgba(2, 3, 10, 0.9), rgba(20, 30, 60, 0.9)) !important;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.15) !important;
+}
+
+.timeline-item:hover .timeline-dot {
+  background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.15), rgba(var(--color-purple-rgb), 0.15)) !important;
+}
+
+/* ─── Skill Cards Visual Enhancement ────────────────────────────────────────── */
+.skill-category-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-category-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-primary-rgb), 0.02) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.skill-category-card:hover::before {
+  opacity: 1;
+}
+
+/* Corner accent on skill category cards */
+.skill-category-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(
+    circle at top right,
+    rgba(var(--color-primary-rgb), 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  border-radius: 0 20px 0 0;
+}
+
+/* ─── Project Cards Enhanced ────────────────────────────────────────────────── */
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--color-pink-rgb), 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+/* Category tag color variation */
+.project-category-tag {
+  background: linear-gradient(135deg, rgba(var(--color-pink-rgb), 0.08), rgba(var(--color-purple-rgb), 0.05));
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(var(--color-pink-rgb), 0.1);
+  display: inline-block;
+  width: fit-content;
+}
+
+/* Filter button active glow */
+.filter-btn.active {
+  box-shadow: 0 4px 20px rgba(var(--color-primary-rgb), 0.35), 0 0 40px rgba(var(--color-primary-rgb), 0.1) !important;
+}
+
+/* ─── Experience & Cert Cards Enhanced ──────────────────────────────────────── */
+.job-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.job-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--color-primary), var(--color-purple));
+  border-radius: 20px 0 0 20px;
+}
+
+.cert-card {
+  position: relative;
+}
+
+.cert-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-primary-rgb), 0.0) 0%,
+    rgba(var(--color-primary-rgb), 0.04) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.cert-card:hover::after {
+  opacity: 1;
+}
+
+/* ─── Contact Form Enhancement ──────────────────────────────────────────────── */
+.contact-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--color-primary-rgb), 0.4), transparent);
+}
+
+.form-container-card::before {
+  background: linear-gradient(90deg, transparent, rgba(var(--color-purple-rgb), 0.4), transparent);
+}
+
+/* Input focus glow */
+.form-group input:focus,
+.form-group textarea:focus {
+  box-shadow: 0 0 0 1px rgba(var(--color-primary-rgb), 0.3), 0 0 20px rgba(var(--color-primary-rgb), 0.1) !important;
+}
+
+/* ─── Testimonials Section Wrapper Glow ─────────────────────────────────────── */
+#testimonials {
+  position: relative;
+}
+
+#testimonials::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 500px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(var(--color-primary-rgb), 0.04) 0%,
+    rgba(var(--color-purple-rgb), 0.03) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Section Transition Gradient Overlays ──────────────────────────────────── */
+/* Creates smooth "bleeding" effect between adjacent sections */
+.section-fade-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.section-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Soft Skills Card Enhancement ──────────────────────────────────────────── */
+.soft-skill-card {
+  border-left: 1px solid rgba(var(--color-primary-rgb), 0.08) !important;
+}
+
+.soft-skill-card:hover {
+  border-left-color: rgba(var(--color-primary-rgb), 0.3) !important;
+  background: rgba(var(--color-primary-rgb), 0.03) !important;
+}
+
+/* ─── Responsive adjustments ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .about-section::before,
+  .skills-section::before,
+  .projects-section::before,
+  .experience-section::before,
+  .contact-section::before {
+    display: none;
+  }
+}

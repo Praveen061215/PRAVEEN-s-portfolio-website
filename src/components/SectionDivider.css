@@ -1,0 +1,125 @@
+/* ═══════════════════════════════════════════════════════════
+   SECTION DIVIDER — Animated glowing separator between sections
+   ═══════════════════════════════════════════════════════════ */
+
+.section-divider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 40px;
+  position: relative;
+  overflow: hidden;
+  height: 2px;
+  margin: 0;
+  z-index: 3;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+.divider-line-left {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(56, 189, 248, 0.05) 20%,
+    rgba(56, 189, 248, 0.25) 60%,
+    rgba(139, 92, 246, 0.4) 100%
+  );
+}
+
+.divider-line-right {
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.4) 0%,
+    rgba(56, 189, 248, 0.25) 40%,
+    rgba(56, 189, 248, 0.05) 80%,
+    transparent 100%
+  );
+}
+
+/* Shimmer animation on the lines */
+.divider-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: divider-shimmer 3.5s ease-in-out infinite;
+}
+
+.divider-line-right::after {
+  left: 140%;
+  animation: divider-shimmer-rev 3.5s ease-in-out infinite;
+  animation-delay: 1.75s;
+}
+
+@keyframes divider-shimmer {
+  0% { left: -100%; }
+  100% { left: 140%; }
+}
+
+@keyframes divider-shimmer-rev {
+  0% { left: 140%; }
+  100% { left: -100%; }
+}
+
+/* Center orb (no label) */
+.divider-center-orb {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 12px 4px rgba(56, 189, 248, 0.5), 0 0 30px 8px rgba(139, 92, 246, 0.2);
+  flex-shrink: 0;
+  margin: 0 16px;
+  animation: orb-pulse 2s ease-in-out infinite;
+}
+
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 12px 4px rgba(56, 189, 248, 0.5), 0 0 30px 8px rgba(139, 92, 246, 0.2); }
+  50% { transform: scale(1.4); box-shadow: 0 0 20px 6px rgba(56, 189, 248, 0.7), 0 0 50px 12px rgba(139, 92, 246, 0.3); }
+}
+
+/* Label pill (with text) */
+.divider-label-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 16px;
+  border-radius: 20px;
+  background: rgba(56, 189, 248, 0.04);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  margin: 0 16px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.divider-label-text {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.divider-label-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.5;
+}
