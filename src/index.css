@@ -44,44 +44,6 @@
   --timeline-line-end: rgba(56, 189, 248, 0.15);
 }
 
-body.light-mode {
-  --bg-primary: #ffffff;        /* Pure Clean Crisp White Background */
-  --bg-secondary: #f8fafc;      /* Soft Light Slate Background */
-  --bg-darker: #ffffff;         /* Pure white cards */
-  --color-primary: #0284c7;     /* Vibrant Blue */
-  --color-primary-rgb: 2, 132, 199;
-  --color-secondary: #0369a1;   /* Rich Deep Navy */
-  --color-accent: #0284c7;      /* Vivid Blue Accent */
-  --color-purple: #6d28d9;      /* Dark Vibrant Purple */
-  --color-purple-rgb: 109, 40, 217;
-  --color-pink: #1d4ed8;        /* Vivid Royal Blue */
-  --color-pink-rgb: 29, 78, 216;
-  --color-white-rgb: 15, 23, 42; /* Dark RGB for shadows in light mode */
-  
-  --text-main: #0f172a;         /* Deep Slate Black (High contrast readability) */
-  --text-muted: #334155;        /* Dark Slate Text */
-  --text-dark: #475569;         /* Subtitle / Secondary label text */
-  
-  --nav-bg: rgba(255, 255, 255, 0.92);
-  --drawer-bg: rgba(255, 255, 255, 0.98);
-  
-  /* Light mode cards: Crisp White with clean borders and subtle soft shadows */
-  --glass-bg: #ffffff;
-  --glass-border: #e2e8f0;
-  --glass-glow: rgba(2, 132, 199, 0.05);
-  --glass-hover-bg: #ffffff;
-  --glass-hover-border: #0284c7;
-
-  /* Ambient section glows */
-  --orb-primary: rgba(2, 132, 199, 0.06);
-  --orb-purple: rgba(109, 40, 217, 0.05);
-  --orb-cyan: rgba(2, 132, 199, 0.04);
-  
-  --divider-shimmer: rgba(2, 132, 199, 0.4);
-  --timeline-line-start: rgba(2, 132, 199, 0.8);
-  --timeline-line-mid: rgba(109, 40, 217, 0.6);
-  --timeline-line-end: rgba(2, 132, 199, 0.2);
-}
 
 * {
   box-sizing: border-box;
