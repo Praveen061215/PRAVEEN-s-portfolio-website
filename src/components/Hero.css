@@ -303,9 +303,9 @@
 @media (max-width: 992px) {
   .hero-container {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 40px;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 40px;
   }
   
   .hero-content {
@@ -331,22 +331,12 @@
 }
 
 @media (max-width: 480px) {
-  .hero-container {
-    padding-top: 10px;
-  }
-
-  .blob-1, .blob-2, .blob-3 {
-    max-width: 80vw;
-    max-height: 80vw;
-  }
-
   .hero-title {
-    font-size: 2.1rem;
-    line-height: 1.1;
+    font-size: 2.3rem;
   }
 
   .hero-typing {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .hero-buttons {
@@ -362,7 +352,6 @@
 
   .profile-hero-frame {
     max-width: 100%;
-    margin-top: 20px;
   }
 }
 

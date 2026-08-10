@@ -52,7 +52,7 @@
 /* Projects Grid */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 30px;
 }
 
@@ -229,38 +229,11 @@
   color: var(--color-primary);
 }
 
-@media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-    gap: 20px;
-  }
-  .filter-tabs {
-    gap: 8px;
-    margin-bottom: 30px;
-  }
-  .filter-btn {
-    padding: 8px 18px;
-    font-size: 0.85rem;
-  }
-}
-
 @media (max-width: 480px) {
   .projects-grid {
     grid-template-columns: 1fr;
   }
   .project-body {
     padding: 20px;
-  }
-  .project-footer {
-    padding: 16px 20px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .project-link-btn {
-    width: 100%;
-    justify-content: center;
-    background: rgba(255,255,255,0.03);
-    padding: 10px;
-    border-radius: 8px;
   }
 }

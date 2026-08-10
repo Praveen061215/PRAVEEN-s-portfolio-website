@@ -519,18 +519,7 @@
   .mobile-toggle { display: flex; }
 }
 
-@media (max-width: 768px) {
-  .navbar { height: 68px; }
-  .navbar.navbar-scrolled { height: 60px; }
-  .mobile-drawer { width: min(320px, 85vw); padding: 24px 20px; }
-  .drawer-profile { padding: 12px; }
-  .drawer-avatar { width: 44px; height: 44px; }
-  .mobile-nav-link { padding: 12px 14px; font-size: 1rem; }
-}
-
 @media (max-width: 480px) {
   .logo-sub { display: none; }
-  .logo-name { font-size: 1.1rem; }
   .navbar-container { padding: 0 16px; }
-  .nav-avatar-wrap { width: 36px; height: 36px; }
 }

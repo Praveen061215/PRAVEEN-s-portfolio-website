@@ -86,19 +86,3 @@
   color: var(--color-primary) !important;
   box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.3) !important;
 }
-
-/* Hide scrollbar for native mobile swipe */
-.hide-scroll {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-.hide-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-@media (max-width: 480px) {
-  .testimonial-modal-bg {
-    width: 95%;
-    margin: 0 auto;
-  }
-}
