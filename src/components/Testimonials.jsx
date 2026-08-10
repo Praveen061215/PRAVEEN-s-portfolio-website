@@ -385,6 +385,7 @@ const Testimonials = () => {
           <FadeIn delay={100}>
             <div className="max-w-2xl mx-auto mb-12 px-4 md:px-0">
               <div className="testimonial-modal-bg backdrop-blur-md rounded-2xl p-6 md:p-8 relative">
+                <button
                   onClick={() => {
                     setShowForm(false);
                     setEditingId(null);
