@@ -20,7 +20,7 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) {
       setFormStatus('error');
@@ -29,16 +29,34 @@ const Contact = () => {
 
     setFormStatus('sending');
 
-    // Simulate API request delay
-    setTimeout(() => {
-      setFormStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "f6d79d4e-7d3f-4531-a112-7df439bb8b74", 
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || "New Message from Portfolio",
+          message: formData.message,
+        }),
       });
-    }, 1500);
+
+      const result = await response.json();
+      if (result.success) {
+        setFormStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        console.error("Form submission failed", result);
+        setFormStatus('error');
+      }
+    } catch (error) {
+      console.error("Error submitting form", error);
+      setFormStatus('error');
+    }
   };
 
   return (
