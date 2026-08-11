@@ -1,7 +1,7 @@
-/* ═══════════════════════════════════════════════════════════
-   TECHBACKGROUND  —  Premium Dark Galaxy Background
+/* ===================================================
+   TECHBACKGROUND  -  Premium Dark Galaxy Background
    Dark blue + Black + Purple + Pink color palette
-   ═══════════════════════════════════════════════════════════ */
+   =================================================== */
 
 .tech-bg-container {
   position: fixed;
@@ -21,7 +21,6 @@
   pointer-events: none;
 }
 
-/* ─── NEBULA BLOBS ──────────────────────────────────────── */
 .bg-gradient-blob {
   position: absolute;
   border-radius: 50%;
@@ -29,7 +28,6 @@
   will-change: transform, opacity;
 }
 
-/* Glowing dark navy left-center blob */
 .blob-black {
   width: 80vw;
   height: 80vw;
@@ -39,15 +37,14 @@
   left: -25%;
   background: radial-gradient(
     circle at center,
-    rgba(var(--color-secondary-rgb, 15, 23, 80), 0.55) 0%,
-    rgba(var(--color-secondary-rgb, 8, 8, 50), 0.35) 45%,
+    rgba(15, 23, 80, 0.55) 0%,
+    rgba(8, 8, 50, 0.35) 45%,
     transparent 75%
   );
   filter: blur(80px);
   animation: blob-drift-1 25s ease-in-out infinite alternate;
 }
 
-/* Vivid purple blob — top center/right */
 .blob-dark-blue {
   width: 65vw;
   height: 65vw;
@@ -65,7 +62,6 @@
   animation: blob-drift-2 30s ease-in-out infinite alternate;
 }
 
-/* Pink/rose bottom-right glow */
 .blob-purple {
   width: 70vw;
   height: 70vw;
@@ -83,7 +79,6 @@
   animation: blob-drift-3 28s ease-in-out infinite alternate;
 }
 
-/* Extra deep blue bottom-left accent */
 .blob-extra {
   position: absolute;
   border-radius: 50%;
@@ -104,7 +99,6 @@
   animation: blob-drift-4 22s ease-in-out infinite alternate;
 }
 
-/* Thin star-field layer overlay */
 .tech-bg-container::after {
   content: '';
   position: absolute;
@@ -124,7 +118,6 @@
   z-index: 1;
 }
 
-/* ─── CANVAS (Binary Matrix) ───────────────────────────── */
 .tech-canvas {
   position: absolute;
   inset: 0;
@@ -132,10 +125,9 @@
   height: 100%;
   z-index: 2;
   pointer-events: none;
-  opacity: 0.65;
+  opacity: 1;
 }
 
-/* ─── BACKGROUND SILHOUETTE (Bottom Left) ───────────────── */
 .bg-silhouette-container {
   position: absolute;
   bottom: 0;
@@ -172,7 +164,6 @@
   pointer-events: none;
 }
 
-/* ─── KEYFRAMES ─────────────────────────────────────────── */
 @keyframes blob-drift-1 {
   0%   { transform: translate(0, 0) scale(1.0); }
   33%  { transform: translate(5vw, 8vh) scale(1.1); }

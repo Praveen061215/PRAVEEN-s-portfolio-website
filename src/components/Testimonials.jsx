@@ -100,21 +100,42 @@ const Testimonials = () => {
         return;
       }
 
-      // Validate file size (max 20MB)
-      if (file.size > 20 * 1024 * 1024) {
-        setFormStatus({
-          type: "error",
-          message: "Image size must be less than 20MB",
-        });
-        return;
-      }
-
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData({ ...formData, image: reader.result });
-        setImagePreview(reader.result);
-        // Clear any previous error status
-        setFormStatus({ type: "", message: "" });
+        // Compress image before saving to base64 to avoid Firebase 1MB limit
+        const img = new Image();
+        img.src = reader.result;
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 300;
+          const MAX_HEIGHT = 300;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Compress into a webp base64 string
+          const compressedDataUrl = canvas.toDataURL("image/webp", 0.7);
+
+          setFormData({ ...formData, image: compressedDataUrl });
+          setImagePreview(compressedDataUrl);
+          // Clear any previous error status
+          setFormStatus({ type: "", message: "" });
+        };
       };
       reader.readAsDataURL(file);
     }
