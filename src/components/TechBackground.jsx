@@ -25,43 +25,55 @@ const TechBackground = () => {
     resize();
     window.addEventListener('resize', resize);
 
-    // Create nano green particles
-    const particleCount = 75; // Adjust count based on density preference
-    const particles = [];
-    
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 2 + 1.5, // Larger size (1.5 to 3.5px) for visibility
-        speed: Math.random() * 1.5 + 0.5, // Move upwards speed
-        opacity: Math.random() * 0.5 + 0.5 // Higher opacity (0.5 to 1.0)
-      });
+    const fontSize = 16;
+    const columns = Math.floor(canvas.width / fontSize) + 1;
+
+    // Array for drops - one per column
+    const drops = [];
+    for (let x = 0; x < columns; x++) {
+      drops[x] = Math.floor(Math.random() * -50); 
     }
 
-    const draw = () => {
+    let lastDrawTime = 0;
+    const fps = 24;
+    const interval = 1000 / fps;
+
+    const draw = (currentTime) => {
       raf = requestAnimationFrame(draw);
 
-      // CLEAR CANVAS completely every frame so background elements remain visible
+      if (currentTime - lastDrawTime < interval) return;
+      lastDrawTime = currentTime;
+
+      // CLEAR CANVAS completely every frame so background elements & silhouette remain transparent & visible!
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (let i = 0; i < particleCount; i++) {
-        const p = particles[i];
-        
-        ctx.beginPath();
-        // Bright neon green
-        ctx.fillStyle = `rgba(34, 197, 94, ${p.opacity})`;
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, false);
-        ctx.fill();
+      ctx.font = fontSize + 'px "Space Grotesk", monospace';
 
-        // Move dot up
-        p.y -= p.speed;
+      for (let i = 0; i < drops.length; i++) {
+        // Draw trailing characters behind each drop head
+        const trailLength = 12;
+        for (let j = 0; j < trailLength; j++) {
+          const dropY = drops[i] - j;
+          const yPos = dropY * fontSize;
 
-        // If the dot goes above the screen, reset it to the bottom
-        if (p.y + p.radius < 0) {
-          p.y = canvas.height + p.radius;
-          p.x = Math.random() * canvas.width;
+          if (yPos > 0 && yPos < canvas.height) {
+            const char = (i + j) % 2 === 0 ? '1' : '0';
+            if (j === 0) {
+              ctx.fillStyle = '#38bdf8'; // Bright Sky Blue for head
+            } else {
+              const alpha = (1 - j / trailLength) * 0.45;
+              ctx.fillStyle = `rgba(2, 132, 199, ${alpha})`; // Deep Blue trail
+            }
+            ctx.fillText(char, i * fontSize, yPos);
+          }
         }
+
+        // Reset drop to top randomly when it moves off-screen
+        if (drops[i] * fontSize > canvas.height + 200) {
+          drops[i] = Math.floor(Math.random() * -20);
+        }
+
+        drops[i]++;
       }
     };
 

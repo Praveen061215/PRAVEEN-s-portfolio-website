@@ -63,13 +63,6 @@ body {
   min-height: 100vh;
   position: relative;
   background-color: var(--bg-primary);
-  overflow-x: hidden;
-  width: 100%;
-}
-
-#root {
-  overflow-x: hidden;
-  width: 100%;
 }
 
 /* Technical Circuit Grid Overlay Background - Disabled in favor of TechBackground */
