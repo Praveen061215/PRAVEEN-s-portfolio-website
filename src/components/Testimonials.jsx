@@ -12,6 +12,8 @@ import {
 
 import "./Testimonials.css";
 
+console.log("TEST ENV:", import.meta.env.VITE_FIREBASE_API_KEY);
+
 const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollContainerRef = useRef(null);
@@ -98,11 +100,11 @@ const Testimonials = () => {
         return;
       }
 
-      // Validate file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
+      // Validate file size (max 20MB)
+      if (file.size > 20 * 1024 * 1024) {
         setFormStatus({
           type: "error",
-          message: "Image size must be less than 5MB",
+          message: "Image size must be less than 20MB",
         });
         return;
       }
