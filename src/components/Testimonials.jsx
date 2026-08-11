@@ -100,21 +100,52 @@ const Testimonials = () => {
         return;
       }
 
-      // Validate file size (max 20MB)
-      if (file.size > 20 * 1024 * 1024) {
+      // Validate file size (max 30MB)
+      if (file.size > 30 * 1024 * 1024) {
         setFormStatus({
           type: "error",
-          message: "Image size must be less than 20MB",
+          message: "Image size must be less than 30MB",
         });
         return;
       }
 
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData({ ...formData, image: reader.result });
-        setImagePreview(reader.result);
-        // Clear any previous error status
-        setFormStatus({ type: "", message: "" });
+        // Compress image before saving to fit within Firestore limits
+        const img = new Image();
+        img.src = reader.result;
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 400;
+          const MAX_HEIGHT = 400;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // Convert to compressed base64 JPEG
+          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+
+          setFormData({ ...formData, image: compressedBase64 });
+          setImagePreview(compressedBase64);
+          // Clear any previous error status
+          setFormStatus({ type: "", message: "" });
+        };
       };
       reader.readAsDataURL(file);
     }
