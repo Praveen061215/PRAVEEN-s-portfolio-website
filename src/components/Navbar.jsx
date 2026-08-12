@@ -111,6 +111,16 @@ const Navbar = () => {
 
       {/* ── Mobile Drawer ───────────────────────────── */}
       <div className={`mobile-drawer ${isMobileMenuOpen ? 'drawer-open' : ''}`} role="dialog" aria-modal="true">
+        
+        {/* Close Button */}
+        <button 
+          className="drawer-close-btn" 
+          onClick={closeMobileMenu} 
+          aria-label="Close menu"
+        >
+          <X size={20} />
+        </button>
+
         {/* decorative blobs inside drawer */}
         <span className="drawer-blob drawer-blob-1" aria-hidden="true" />
         <span className="drawer-blob drawer-blob-2" aria-hidden="true" />
