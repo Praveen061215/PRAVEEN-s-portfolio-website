@@ -116,8 +116,8 @@ const Testimonials = () => {
         img.src = reader.result;
         img.onload = () => {
           const canvas = document.createElement("canvas");
-          const MAX_WIDTH = 400;
-          const MAX_HEIGHT = 400;
+          const MAX_WIDTH = 800; // සුපිරි Quality එකක් සඳහා size එක වැඩි කළා
+          const MAX_HEIGHT = 800;
           let width = img.width;
           let height = img.height;
 
@@ -138,8 +138,8 @@ const Testimonials = () => {
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0, width, height);
 
-          // Convert to compressed base64 JPEG
-          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.7);
+          // Convert to high-quality base64 JPEG
+          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.95);
 
           setFormData({ ...formData, image: compressedBase64 });
           setImagePreview(compressedBase64);
