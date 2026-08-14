@@ -687,7 +687,7 @@ const Testimonials = () => {
                             <img
                               src={testimonial.image}
                               alt={testimonial.name}
-                              className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+                              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105"
                             />
 
                             {/* Stat Badge Overlay */}
