@@ -115,8 +115,7 @@ const Testimonials = () => {
         const img = new Image();
         img.src = reader.result;
         img.onload = () => {
-          const canvas = document.createElement("canvas");
-          const MAX_WIDTH = 800; // සුපිරි Quality එකක් සඳහා size එක වැඩි කළා
+          const MAX_WIDTH = 800;
           const MAX_HEIGHT = 800;
           let width = img.width;
           let height = img.height;
@@ -133,10 +132,36 @@ const Testimonials = () => {
             }
           }
 
+          // Step-down scaling to prevent aliasing
+          let currentCanvas = document.createElement("canvas");
+          let currentCtx = currentCanvas.getContext("2d");
+          currentCanvas.width = img.width;
+          currentCanvas.height = img.height;
+          currentCtx.drawImage(img, 0, 0);
+
+          let currentWidth = img.width;
+          let currentHeight = img.height;
+
+          while (currentWidth * 0.5 > width) {
+            currentWidth = Math.floor(currentWidth * 0.5);
+            currentHeight = Math.floor(currentHeight * 0.5);
+            const tempCanvas = document.createElement("canvas");
+            tempCanvas.width = currentWidth;
+            tempCanvas.height = currentHeight;
+            const tempCtx = tempCanvas.getContext("2d");
+            tempCtx.imageSmoothingEnabled = true;
+            tempCtx.imageSmoothingQuality = "high";
+            tempCtx.drawImage(currentCanvas, 0, 0, currentWidth, currentHeight);
+            currentCanvas = tempCanvas;
+          }
+
+          const canvas = document.createElement("canvas");
           canvas.width = width;
           canvas.height = height;
           const ctx = canvas.getContext("2d");
-          ctx.drawImage(img, 0, 0, width, height);
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(currentCanvas, 0, 0, currentWidth, currentHeight, 0, 0, width, height);
 
           // Convert to high-quality base64 JPEG
           const compressedBase64 = canvas.toDataURL("image/jpeg", 0.95);
@@ -662,7 +687,7 @@ const Testimonials = () => {
                             <img
                               src={testimonial.image}
                               alt={testimonial.name}
-                              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 hover:scale-105"
+                              className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
                             />
 
                             {/* Stat Badge Overlay */}
